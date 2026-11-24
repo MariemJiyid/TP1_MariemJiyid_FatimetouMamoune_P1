@@ -40,7 +40,10 @@ public class EmpruntService {
     @WebMethod
     @WebResult(name = "penalite")
     public BigDecimal rendreLivre(@WebParam(name = "numeroEmprunt") String numeroEmprunt) {
-        return BigDecimal.ZERO; // sera complété à l'étape 4
+        if (numeroEmprunt == null || !numeroEmprunt.startsWith("E-2026-"))
+            throw faultClient("Numéro d'emprunt inconnu : " + numeroEmprunt);
+        return BigDecimal.ZERO;
+        // sera complété à l'étape 4
     }
 
     private static SOAPFaultException faultClient(String message) {
